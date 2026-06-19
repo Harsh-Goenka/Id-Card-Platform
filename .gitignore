@@ -6,3 +6,33 @@ coverage
 storage/temp
 storage/exports
 .DS_Store
+
+# dependencies
+node_modules
+
+# environment variables
+.env
+
+# logs
+logs
+*.log
+
+# build files
+dist
+build
+
+# vscode
+.vscode
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# uploads
+uploads
+
+# generated exports
+exports
+
+# temporary files
+temp

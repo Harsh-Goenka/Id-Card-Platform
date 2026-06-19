@@ -1,3 +1,21 @@
+import ProtectedLayout from "../layouts/ProtectedLayout";
+
 export default function DashboardPage() {
-  return <h1>DashboardPage</h1>;
+  return (
+    <ProtectedLayout>
+
+      <h1>
+        Dashboard
+      </h1>
+
+      <button>
+        Create Project
+      </button>
+
+      <button>
+        Open Existing Project
+      </button>
+
+    </ProtectedLayout>
+  );
 }
