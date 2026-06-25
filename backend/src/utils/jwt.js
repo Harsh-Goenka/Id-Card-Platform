@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import env from "../config/env.js";
 export const generateAccessToken =
   (user) => {
 
@@ -9,7 +9,7 @@ export const generateAccessToken =
         role: user.role,
       },
 
-      process.env.JWT_ACCESS_SECRET,
+      env.JWT_ACCESS_SECRET,
 
       {
         expiresIn: "15m",
@@ -26,7 +26,7 @@ export const generateRefreshToken =
         id: user._id,
       },
 
-      process.env.JWT_REFRESH_SECRET,
+      env.JWT_REFRESH_SECRET,
 
       {
         expiresIn: "7d",

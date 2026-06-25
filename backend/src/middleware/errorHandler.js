@@ -1,5 +1,4 @@
-import { ZodError }
-from "zod";
+import { ZodError } from "zod";
 
 const errorHandler = (
   err,
@@ -12,21 +11,18 @@ const errorHandler = (
 
     return res.status(400).json({
       success: false,
-
-      errors: err.issues.map(
-        (issue) => ({
-          field: issue.path[0],
-          message: issue.message,
-        })
-      ),
+      message: "Validation failed",
+      errors: err.issues.map((issue) => ({
+        field: issue.path[0],
+        message: issue.message,
+      })),
     });
 
   }
 
-  const statusCode =
-    err.statusCode || 500;
-
-  res.status(statusCode).json({
+  return res.status(
+    err.statusCode || 500
+  ).json({
     success: false,
     message:
       err.message ||

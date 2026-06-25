@@ -10,125 +10,113 @@ import {
   logoutUser,
 } from "./auth.service.js";
 
+import asyncHandler from "../../utils/asyncHandler.js";
+import ApiResponse from "../../utils/apiResponse.js";
 import {
   refreshCookieOptions,
 } from "../../utils/cookies.js";
 
-import asyncHandler
-from "../../utils/asyncHandler.js";
-
-
 export const register =
-  asyncHandler(
-    async (req, res) => {
+  asyncHandler(async (req, res) => {
 
-      const validatedData =
-        registerSchema.parse(
-          req.body
-        );
+    const validatedData =
+      registerSchema.parse(req.body);
 
-      const user =
-        await registerUser(
-          validatedData
-        );
+    const user =
+      await registerUser(validatedData);
 
-      return res.status(201).json({
-        success: true,
-        message:
+    return res
+      .status(201)
+      .json(
+        new ApiResponse(
           "User registered successfully",
-        data: user,
-      });
+          user
+        )
+      );
 
-    }
-  );
+  });
 
 export const login =
-  asyncHandler(
-    async (req, res) => {
+  asyncHandler(async (req, res) => {
 
-      const validatedData =
-        loginSchema.parse(
-          req.body
-        );
+    const validatedData =
+      loginSchema.parse(req.body);
 
-      const result =
-        await loginUser(
-          validatedData
-        );
+    const result =
+      await loginUser(validatedData);
 
-      res.cookie(
-        "refreshToken",
-        result.refreshToken,
-        refreshCookieOptions
+    res.cookie(
+      "refreshToken",
+      result.refreshToken,
+      refreshCookieOptions
+    );
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          "Login successful",
+          {
+            user: result.user,
+            accessToken:
+              result.accessToken,
+          }
+        )
       );
 
-      return res.status(200).json({
-        success: true,
-
-        message:
-          "Login successful",
-
-        data: {
-          user: result.user,
-          accessToken:
-            result.accessToken,
-        },
-      });
-
-    }
-  );
+  });
 
 export const getMe =
-  asyncHandler(
-    async (req, res) => {
+  asyncHandler(async (req, res) => {
 
-      return res.status(200).json({
-        success: true,
-        data: req.user,
-      });
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          "User fetched successfully",
+          req.user
+        )
+      );
 
-    }
-  );
+  });
 
+export const refresh =
+  asyncHandler(async (req, res) => {
 
+    const refreshToken =
+      req.cookies.refreshToken;
 
-  export const refresh =
-  asyncHandler(
-    async (req, res) => {
+    const accessToken =
+      await refreshAccessToken(
+        refreshToken
+      );
 
-      const refreshToken =
-        req.cookies.refreshToken;
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          "Access token refreshed successfully",
+          {
+            accessToken,
+          }
+        )
+      );
 
-      const accessToken =
-        await refreshAccessToken(
-          refreshToken
-        );
-
-      return res.status(200).json({
-        success: true,
-        accessToken,
-      });
-
-    }
-  );
+  });
 
 export const logout =
-  asyncHandler(
-    async (req, res) => {
+  asyncHandler(async (req, res) => {
 
-      await logoutUser(
-        req.user._id
+    await logoutUser(req.user._id);
+
+    res.clearCookie("refreshToken");
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          "Logout successful"
+        )
       );
 
-      res.clearCookie(
-        "refreshToken"
-      );
-
-      return res.status(200).json({
-        success: true,
-        message:
-          "Logout successful",
-      });
-
-    }
-  );
+  });

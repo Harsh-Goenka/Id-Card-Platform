@@ -9,6 +9,8 @@ from "../modules/auth/auth.model.js";
 import asyncHandler
 from "../utils/asyncHandler.js";
 
+import env from "../config/env.js";
+
 export const protect =
   asyncHandler(
     async (req, res, next) => {
@@ -40,7 +42,7 @@ export const protect =
       const decoded =
         jwt.verify(
           token,
-          process.env
+          env
             .JWT_ACCESS_SECRET
         );
 
