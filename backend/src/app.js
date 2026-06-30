@@ -8,7 +8,8 @@ import requestId from "./middleware/requestId.middleware.js";
 import logger from "./config/morgan.js";
 import projectRoutes
 from "./modules/projects/project.routes.js";
-
+import uploadRoutes
+from "./modules/uploads/upload.routes.js";
 
 const app = express();
 
@@ -35,6 +36,11 @@ app.use(
 app.use(
   "/api/projects",
   projectRoutes
+);
+
+app.use(
+  "/api/uploads",
+  uploadRoutes
 );
 
 app.get("/api/health", (req, res) => {

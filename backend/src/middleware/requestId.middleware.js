@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
+import crypto from "crypto";
 
 const requestId = (req, res, next) => {
 
-  const id = uuidv4();
+  const id = crypto.randomUUID();
 
   req.requestId = id;
 

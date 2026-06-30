@@ -109,26 +109,94 @@ const projectSchema =
         },
 
       },
+      excel: {
+
+          uploaded: {
+
+            type: Boolean,
+
+            default: false,
+
+          },
+
+          originalName: {
+
+            type: String,
+
+            default: "",
+
+          },
+
+          headers: {
+
+            type: [String],
+
+            default: [],
+
+          },
+
+        },
+      
 
       template: {
 
-        frontBackground: {
+  front: {
 
-          type: String,
+    uploaded: {
 
-          default: "",
+      type: Boolean,
 
-        },
+      default: false,
 
-        backBackground: {
+    },
 
-          type: String,
+    originalName: {
 
-          default: "",
+      type: String,
 
-        },
+      default: "",
 
-      },
+    },
+
+    fileName: {
+
+      type: String,
+
+      default: "",
+
+    },
+
+  },
+
+  back: {
+
+    uploaded: {
+
+      type: Boolean,
+
+      default: false,
+
+    },
+
+    originalName: {
+
+      type: String,
+
+      default: "",
+
+    },
+
+    fileName: {
+
+      type: String,
+
+      default: "",
+
+    },
+
+  },
+
+},
 
       export: {
 
@@ -172,10 +240,7 @@ projectSchema.index({
   createdAt: -1,
 });
 
-projectSchema.index({
-  owner: 1,
-  name: "text",
-});
+
 
 export const Project =
   mongoose.model(

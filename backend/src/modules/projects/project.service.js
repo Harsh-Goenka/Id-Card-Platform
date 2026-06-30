@@ -5,8 +5,7 @@ import {
   deleteProjectWorkspace,
 } from "../../services/storage.service.js";
 
-import { v4 as uuidv4 } from "uuid";
-
+import crypto from "crypto";
 import AppError from "../../utils/AppError.js";
 
 export const createProject =
@@ -15,8 +14,7 @@ export const createProject =
     projectData
   ) => {
 
-    const folderName =
-      uuidv4();
+    const folderName = crypto.randomUUID();
 
     try {
 
@@ -78,41 +76,6 @@ export const getProjects = async (userId) => {
 
 };
 
-export const getProjectById = async (
-  userId,
-  projectId
-) => {
-
-  if (
-    !mongoose.Types.ObjectId.isValid(projectId)
-  ) {
-    throw new AppError(
-      "Project not found",
-      404
-    );
-  }
-
-  const project =
-    await Project.findOne({
-
-      _id: projectId,
-
-      owner: userId,
-
-    });
-
-  if (!project) {
-
-    throw new AppError(
-      "Project not found",
-      404
-    );
-
-  }
-
-  return project;
-
-};
 
 
 
@@ -168,3 +131,43 @@ export const deleteProject = async (
   }
 
 };
+
+
+export const findProjectForUser = async (
+  userId,
+  projectId
+) => {
+
+  if (
+    !mongoose.Types.ObjectId.isValid(
+      projectId
+    )
+  ) {
+    throw new AppError(
+      "Project not found",
+      404
+    );
+  }
+
+  const project =
+    await Project.findOne({
+
+      _id: projectId,
+
+      owner: userId,
+
+    });
+
+  if (!project) {
+
+    throw new AppError(
+      "Project not found",
+      404
+    );
+
+  }
+
+  return project;
+
+};
+

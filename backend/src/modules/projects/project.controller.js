@@ -7,7 +7,7 @@ import { createProjectSchema } from "./project.validation.js";
 import {
   createProject,
   getProjects,
-  getProjectById,
+  findProjectForUser,
   deleteProject,
 } from "./project.service.js";
 
@@ -59,7 +59,7 @@ export const getOne =
   asyncHandler(async (req, res) => {
 
     const project =
-      await getProjectById(
+      await findProjectForUser(
 
         req.user._id,
 

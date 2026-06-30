@@ -65,3 +65,37 @@ export const deleteProjectWorkspace =
 
 };
 
+export const moveFileToProject = async (
+  tempFilePath,
+  folderName,
+  destinationFolder,
+  destinationFileName
+) => {
+
+  const targetFolder = path.join(
+    STORAGE_ROOT,
+    folderName,
+    destinationFolder
+  );
+
+  await fs.mkdir(targetFolder, {
+    recursive: true,
+  });
+
+  const destinationPath = path.join(
+    targetFolder,
+    destinationFileName
+  );
+
+  await fs.copyFile(
+    tempFilePath,
+    destinationPath
+  );
+
+  await fs.unlink(
+    tempFilePath
+  );
+
+  return destinationPath;
+
+};
