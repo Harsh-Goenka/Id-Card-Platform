@@ -1,5 +1,4 @@
 import asyncHandler from "../../utils/asyncHandler.js";
-
 import ApiResponse from "../../utils/apiResponse.js";
 
 import { createProjectSchema } from "./project.validation.js";
@@ -9,6 +8,7 @@ import {
   getProjects,
   findProjectForUser,
   deleteProject,
+  saveLayout,
 } from "./project.service.js";
 
 export const create =
@@ -83,6 +83,35 @@ export const getOne =
 
   });
 
+export const updateLayout =
+  asyncHandler(async (req, res) => {
+
+    const layout =
+      await saveLayout(
+
+        req.user._id,
+
+        req.params.id,
+
+        req.body.objects
+
+      );
+
+    return res
+      .status(200)
+      .json(
+
+        new ApiResponse(
+
+          "Layout saved successfully",
+
+          layout
+
+        )
+
+      );
+
+  });
 
 export const remove =
   asyncHandler(async (req, res) => {

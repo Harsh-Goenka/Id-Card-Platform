@@ -2,7 +2,12 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User }
 from "./auth.model.js";
+import { Project }
+from "../projects/project.model.js";
 
+import {
+  clearTemporaryUploads,
+} from "../../services/storage.service.js";
 import AppError
 from "../../utils/AppError.js";
 
@@ -183,13 +188,57 @@ export const refreshAccessToken =
 
 
 export const logoutUser =
-  async (userId) => {
+async (userId) => {
 
-    await User.findByIdAndUpdate(
-      userId,
-      {
-        refreshToken: null,
-      }
-    );
+  const projects =
+    await Project.find({
+      owner: userId,
+    });
 
-  };
+  for (const project of projects) {
+
+    try {
+
+      await clearTemporaryUploads(
+        project.storage.folderName
+      );
+
+      project.excel.uploaded = false;
+
+      project.photos.uploaded = false;
+
+      project.photos.count = 0;
+
+      project.photos.indexFile = "";
+
+      await project.save();
+
+    }
+
+    catch (error) {
+
+      console.error(
+
+        `Cleanup failed for project ${project._id}`,
+
+        error
+
+      );
+
+    }
+
+  }
+
+  await User.findByIdAndUpdate(
+
+    userId,
+
+    {
+
+      refreshToken: null,
+
+    }
+
+  );
+
+};

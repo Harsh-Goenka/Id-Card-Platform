@@ -1,5 +1,6 @@
 import { Project } from "./project.model.js";
 import mongoose from "mongoose";
+
 import {
   createProjectWorkspace,
   deleteProjectWorkspace,
@@ -14,7 +15,8 @@ export const createProject =
     projectData
   ) => {
 
-    const folderName = crypto.randomUUID();
+    const folderName =
+      crypto.randomUUID();
 
     try {
 
@@ -42,6 +44,12 @@ export const createProject =
 
           },
 
+          layout: {
+
+            objects: [],
+
+          },
+
         });
 
       return project;
@@ -60,114 +68,174 @@ export const createProject =
     }
 
 };
-export const getProjects = async (userId) => {
 
-  const projects = await Project.find({
-    owner: userId,
-  })
-    .select(
-      "-storage.folderName"
-    )
-    .sort({
-      updatedAt: -1,
-    });
+export const getProjects =
+  async (userId) => {
 
-  return projects;
-
-};
-
-
-
-
-
-export const deleteProject = async (
-  userId,
-  projectId
-) => {
-
-  if (
-    !mongoose.Types.ObjectId.isValid(projectId)
-  ) {
-    throw new AppError(
-      "Project not found",
-      404
-    );
-  }
-
-  const project =
-    await Project.findOne({
-
-      _id: projectId,
+    return await Project.find({
 
       owner: userId,
 
-    });
+    })
 
-  if (!project) {
-    throw new AppError(
-      "Project not found",
-      404
-    );
-  }
+      .select(
 
-  const folderName =
-    project.storage.folderName;
+        "-storage.folderName"
 
-  await project.deleteOne();
+      )
 
-  try {
+      .sort({
 
-    await deleteProjectWorkspace(
-      folderName
-    );
+        updatedAt: -1,
 
-  } catch (error) {
-
-    console.error(
-      "Workspace cleanup failed:",
-      error
-    );
-
-  }
+      });
 
 };
 
+export const deleteProject =
+  async (
+    userId,
+    projectId
+  ) => {
 
-export const findProjectForUser = async (
-  userId,
-  projectId
-) => {
+    if (
 
-  if (
-    !mongoose.Types.ObjectId.isValid(
-      projectId
-    )
-  ) {
-    throw new AppError(
-      "Project not found",
-      404
-    );
-  }
+      !mongoose.Types.ObjectId.isValid(
 
-  const project =
-    await Project.findOne({
+        projectId
 
-      _id: projectId,
+      )
 
-      owner: userId,
+    ) {
 
-    });
+      throw new AppError(
 
-  if (!project) {
+        "Project not found",
 
-    throw new AppError(
-      "Project not found",
-      404
-    );
+        404
 
-  }
+      );
 
-  return project;
+    }
+
+    const project =
+      await Project.findOne({
+
+        _id: projectId,
+
+        owner: userId,
+
+      });
+
+    if (!project) {
+
+      throw new AppError(
+
+        "Project not found",
+
+        404
+
+      );
+
+    }
+
+    const folderName =
+      project.storage.folderName;
+
+    await project.deleteOne();
+
+    try {
+
+      await deleteProjectWorkspace(
+
+        folderName
+
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
 
 };
 
+export const findProjectForUser =
+  async (
+    userId,
+    projectId
+  ) => {
+
+    if (
+
+      !mongoose.Types.ObjectId.isValid(
+
+        projectId
+
+      )
+
+    ) {
+
+      throw new AppError(
+
+        "Project not found",
+
+        404
+
+      );
+
+    }
+
+    const project =
+      await Project.findOne({
+
+        _id: projectId,
+
+        owner: userId,
+
+      });
+
+    if (!project) {
+
+      throw new AppError(
+
+        "Project not found",
+
+        404
+
+      );
+
+    }
+
+    return project;
+
+};
+
+export const saveLayout =
+  async (
+
+    userId,
+
+    projectId,
+
+    objects
+
+  ) => {
+
+    const project =
+      await findProjectForUser(
+
+        userId,
+
+        projectId
+
+      );
+
+    project.layout.objects =
+      objects;
+
+    await project.save();
+
+    return project.layout;
+
+};

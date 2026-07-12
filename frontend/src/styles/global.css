@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+:root{
+
+  /* ========= COLORS ========= */
+
+  --bg:#F8F6F2;
+
+  --surface:#FFFFFF;
+
+  --surface-2:#FCFBF8;
+
+  --primary:#596357;
+
+  --primary-hover:#495046;
+
+  --accent:#C6B9A7;
+
+  --border:#E6DED2;
+
+  --heading:#262523;
+
+  --text:#4F4A46;
+
+  --muted:#7D7770;
+
+  --success:#87967B;
+
+  /* ========= SHADOWS ========= */
+
+  --shadow-sm:
+  0 4px 12px rgba(38,37,35,.04);
+
+  --shadow-md:
+  0 12px 30px rgba(38,37,35,.06);
+
+  --shadow-lg:
+  0 25px 60px rgba(38,37,35,.08);
+
+  /* ========= TRANSITION ========= */
+
+  --transition:
+  all .25s ease;
+
+}
+
+/* ------------------------------ */
+
+html{
+
+  scroll-behavior:smooth;
+
+}
+
+body{
+
+  margin:0;
+
+  font-family:"Manrope",sans-serif;
+
+  background:
+
+  radial-gradient(
+
+  rgba(38,37,35,.045) 1px,
+
+  transparent 1px
+
+  );
+
+  background-size:28px 28px;
+
+  background-color:var(--bg);
+
+  color:var(--text);
+
+  overflow-x:hidden;
+
+  -webkit-font-smoothing:antialiased;
+
+}
+
+*{
+
+  box-sizing:border-box;
+
+}
+
+a{
+
+  text-decoration:none;
+
+  color:inherit;
+
+}
+
+img{
+
+  display:block;
+
+  max-width:100%;
+
+}
+
+button{
+
+  font-family:inherit;
+
+}
+
+::selection{
+
+  background:var(--accent);
+
+  color:var(--heading);
+
+}
+
+/* ============================= */
+/* Reusable Components */
+/* ============================= */
+
+.section{
+
+  padding:7rem 1.5rem;
+
+}
+
+.container-custom{
+
+  max-width:1280px;
+
+  margin:auto;
+
+}
+
+.surface{
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  box-shadow:var(--shadow-sm);
+
+}
+
+.heading{
+
+  color:var(--heading);
+
+}
+
+.text-muted{
+
+  color:var(--muted);
+
+}
+
+.primary-btn{
+
+  background:var(--primary);
+
+  color:white;
+
+  transition:var(--transition);
+
+}
+
+.primary-btn:hover{
+
+  background:var(--primary-hover);
+
+}
+
+.secondary-btn{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  transition:var(--transition);
+
+}
+
+.secondary-btn:hover{
+
+  border-color:var(--primary);
+
+}

@@ -104,19 +104,35 @@ export const templateUpload =
 
   });
 
-export const photosUpload =
-  createUploader({
+export const photosUpload=
+  multer({
 
-    allowedMimeTypes: [
+    storage,
 
-      "application/zip",
+    limits:{
+      fileSize:500*1024*1024,
+    },
 
-      "application/x-zip-compressed",
+    fileFilter(req,file,cb){
 
-    ],
+      const extension=
+        path.extname(
+          file.originalname
+        ).toLowerCase();
 
-    maxFileSize:
-      500 * 1024 * 1024,
+      if(extension!==".zip"){
+
+        return cb(
+          new Error(
+            "Only ZIP files are allowed."
+          )
+        );
+
+      }
+
+      cb(null,true);
+
+    },
 
   });
   

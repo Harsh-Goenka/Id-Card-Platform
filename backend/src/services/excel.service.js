@@ -13,7 +13,7 @@ export const extractHeaders =
     );
 
     const worksheet =
-      workbook.getWorksheet(1);
+      workbook.getWorksheet();
 
     if (!worksheet) {
 

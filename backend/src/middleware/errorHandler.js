@@ -6,6 +6,8 @@ const errorHandler = (
   res,
   next
 ) => {
+  ////
+  console.error(err.stack);//checking temporary
 
   if (err instanceof ZodError) {
 

@@ -36,3 +36,18 @@ exports
 
 # temporary files
 temp
+
+
+# Backend storage
+backend/storage/*
+!backend/storage/.gitkeep
+
+# Generated files
+backend/storage/**/excel/
+backend/storage/**/photos/
+backend/storage/**/cards/
+backend/storage/**/exports/
+
+# Environment files
+backend/.env
+frontend/.env
