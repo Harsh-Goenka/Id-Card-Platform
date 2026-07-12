@@ -109,7 +109,7 @@ this.res.once(
     );
 
     await archive.finalize();
-    console.log("ZIP finalized");
+  
 
   }
 

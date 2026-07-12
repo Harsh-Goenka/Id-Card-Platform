@@ -7,6 +7,7 @@ const requiredEnv = [
   "MONGO_URI",
   "JWT_ACCESS_SECRET",
   "JWT_REFRESH_SECRET",
+  "CLIENT_URL",
 ];
 
 requiredEnv.forEach((key) => {
@@ -31,6 +32,9 @@ const env = {
 
   JWT_REFRESH_SECRET:
     process.env.JWT_REFRESH_SECRET,
+  
+  CLIENT_URL:
+    process.env.CLIENT_URL,
 };
 
 export default env;

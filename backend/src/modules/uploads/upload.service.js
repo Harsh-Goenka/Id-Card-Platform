@@ -179,7 +179,7 @@ async(
       projectId
     );
 
-  console.log("1. Project found");
+  
 
   const tempPhotosFolder =
   await createTempPhotosFolder(
@@ -188,22 +188,18 @@ async(
 
   );
 
-console.log(
 
-  "2. Temporary folder created"
-
-);
 
   try{
 
-    console.log("3. Starting ZIP extraction");
+    
 
     await extractPhotosFromZip(
       file.path,
       tempPhotosFolder
     );
 
-    console.log("4. ZIP extracted");
+   
 
     const{
       count
@@ -212,7 +208,7 @@ console.log(
         tempPhotosFolder
       );
 
-    console.log("5. Index created",count);
+  
 
     await replaceProjectPhotos(
 
@@ -222,11 +218,7 @@ console.log(
 
 );
 
-console.log(
 
-  "6. Photos replaced"
-
-);
 
     project.photos={
       uploaded:true,
@@ -234,19 +226,18 @@ console.log(
       indexFile:"index.json",
     };
 
-    console.log("7. About to save project");
+
 
     await project.save();
 
-    console.log("8. Project saved");
+  
 
     return project;
 
   }
   catch(error){
 
-    console.log("ERROR OCCURRED");
-    console.log(error);
+    console.error(error);
 
     await fs.rm(
       tempPhotosFolder,
@@ -261,7 +252,7 @@ console.log(
   }
   finally{
 
-    console.log("9. Deleting temp ZIP");
+  
 
     await fs.unlink(
       file.path

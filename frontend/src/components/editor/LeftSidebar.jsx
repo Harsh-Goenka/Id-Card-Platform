@@ -448,7 +448,7 @@ export default function LeftSidebar() {
       // setProject(
       //   response.data
       // );
-      console.log("Before upload");
+     
 
 const response=
   await uploadPhotosZip(
@@ -456,7 +456,7 @@ const response=
     file
   );
 
-console.log("After upload",response);
+
 
 setProject(
   response.data

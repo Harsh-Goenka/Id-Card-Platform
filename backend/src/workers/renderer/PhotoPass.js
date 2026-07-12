@@ -21,29 +21,20 @@ export default class PhotoPass{
     if(
       !photoId
     ){
-      console.log(
-        "No photoId received"
-      );
+      
       return;
     }
-    console.log(
-      "PhotoId:",
-      photoId
-    );
+    
     const photo=
       this.photoIndex[
         photoId
       ];
-    console.log(
-      "Photo object:",
-      photo
-    );
+    
     if(
       !photo
     ){
-      console.log(
-        "Photo not found in index.json"
-      );
+      
+      
       return;
     }
     const imagePath=
@@ -54,19 +45,12 @@ export default class PhotoPass{
         "photos",
         photo.file
       );
-    console.log(
-      "Loading image:",
-      imagePath
-    );
+    
     const image=
       await loadImage(
         imagePath
       );
-    console.log(
-      "Image loaded:",
-      image.width,
-      image.height
-    );
+    
     this.ctx.drawImage(
       image,
       object.x,
@@ -74,8 +58,6 @@ export default class PhotoPass{
       object.width,
       object.height
     );
-    console.log(
-      "Photo drawn on canvas"
-    );
+   
   }
 }

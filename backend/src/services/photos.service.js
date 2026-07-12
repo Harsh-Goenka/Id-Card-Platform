@@ -61,99 +61,7 @@ export const createPhotoIndex=async(folder)=>{
 
 };
 
-// export const extractPhotosFromZip=async(
-//   zipPath,
-//   destinationFolder
-// )=>{
-//   const extracted=[];
-//   const seen=new Set();
 
-//   const zipStream=
-//     fsSync.createReadStream(
-//       zipPath
-//     );
-
-//   const parser=
-//     zipStream.pipe(
-//       unzipper.Parse()
-//     );
-//     console.log("ZIP parser created");//checking
-
-//   for await(const entry of parser){
-//     console.log(
-//   "ENTRY:",
-//   entry.path,
-//   entry.type
-// );//checking
-
-//     const entryPath=
-//       entry.path;
-//     if(
-//       entry.type==="Directory"
-//     ){
-//       entry.autodrain();
-//       continue;
-//     }
-//     const fileName=
-//       path.basename(
-//         entryPath
-//       );
-//     if(
-//       fileName.startsWith(".")
-//     ){
-//       entry.autodrain();
-//       continue;
-//     }
-//     if(
-//       entryPath.includes("__MACOSX")
-//     ){
-//       entry.autodrain();
-//       continue;
-//     }
-//     if(
-//       !isSupportedPhoto(
-//         fileName
-//       )
-//     ){
-//       entry.autodrain();
-//       continue;
-//     }
-
-//     const photoId=
-//   getPhotoId(
-//     fileName
-//   );
-
-// if(
-//   seen.has(photoId)
-// ){
-//   entry.autodrain();
-//   continue;
-// }
-
-// seen.add(photoId);
-//     const destinationFile=
-//     path.join(
-//         destinationFolder,
-//         fileName
-//     );
-
-//     await pipeline(
-//     entry,
-//     fsSync.createWriteStream(
-//         destinationFile
-//     )
-//     );
-
-//     extracted.push(
-//     fileName
-//     );
-
-//   }
-
-//   return extracted;
-
-// };
 export const extractPhotosFromZip=async(
   zipPath,
   destinationFolder
@@ -166,19 +74,11 @@ export const extractPhotosFromZip=async(
       zipPath
     );
 
-  console.log(
-    "ZIP opened",
-    directory.files.length,
-    "entries"
-  );
+ 
 
   for(const entry of directory.files){
 
-    console.log(
-      "ENTRY:",
-      entry.path,
-      entry.type
-    );
+    
 
     if(
       entry.type==="Directory"

@@ -91,14 +91,7 @@ const value =
     ? String(cell.text ?? cell.result ?? "")
     : cell;
 
-console.log(
-  "HEADER:",
-  header,
-  "| VALUE:",
-  value,
-  "| RAW:",
-  cell
-);
+
 
 obj[header] = value;
         }

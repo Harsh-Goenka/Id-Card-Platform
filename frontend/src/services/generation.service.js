@@ -52,10 +52,10 @@ export async function generateProject(
 
   link.click();
 
-  link.remove();
 
   window.URL.revokeObjectURL(
     url
   );
+  document.body.removeChild(link);
 
 }

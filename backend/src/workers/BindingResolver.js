@@ -26,16 +26,16 @@ export default class BindingResolver{
     if(
       object.type==="image"
     ){
-      console.log(
-        "IMAGE BINDING:",
-        object.binding
-      );
-      console.log(
-        "EXCEL VALUE:",
-        this.row[
-          object.binding
-        ]
-      );
+      // console.log(
+      //   "IMAGE BINDING:",
+      //   object.binding
+      // );
+      // console.log(
+      //   "EXCEL VALUE:",
+      //   this.row[
+      //     object.binding
+      //   ]
+      // );
       return{
         ...object,
         photoId:

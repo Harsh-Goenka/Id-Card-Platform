@@ -26,7 +26,8 @@ export default function StageCanvas({ canvas }) {
     }
     const image = new window.Image();
     image.crossOrigin = "anonymous";
-    image.src = `http://localhost:5000/storage/${project.storage.folderName}/template/${project.template.front.fileName}?t=${Date.now()}`;
+   image.src =
+  `${import.meta.env.VITE_API_URL}/storage/${project.storage.folderName}/template/${project.template.front.fileName}?t=${Date.now()}`;
     image.onload = () => {
       setBackground(image);
     };

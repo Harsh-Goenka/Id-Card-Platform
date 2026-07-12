@@ -79,9 +79,7 @@ export default async function cleanup(
 
     );
 
-    console.log(
-      "Temporary export cleaned."
-    );
+    
 
   }
 

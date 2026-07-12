@@ -109,8 +109,10 @@ export const logout =
 
     await logoutUser(req.user._id);
 
-    res.clearCookie("refreshToken");
-
+res.clearCookie(
+  "refreshToken",
+  refreshCookieOptions
+);
     return res
       .status(200)
       .json(

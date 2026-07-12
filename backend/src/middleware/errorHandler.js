@@ -7,7 +7,11 @@ const errorHandler = (
   next
 ) => {
   ////
-  console.error(err.stack);//checking temporary
+  if (
+  process.env.NODE_ENV !== "production"
+) {
+  console.error(err.stack);
+}
 
   if (err instanceof ZodError) {
 

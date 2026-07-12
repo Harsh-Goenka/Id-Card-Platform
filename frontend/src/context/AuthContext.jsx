@@ -52,9 +52,13 @@ export const AuthProvider = ({
 
         } catch {
 
-          localStorage.removeItem(
-            "accessToken"
-          );
+          catch {
+
+  localStorage.removeItem("accessToken");
+
+  setUser(null);
+
+
 
         } finally {
 
