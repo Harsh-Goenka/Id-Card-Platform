@@ -11,8 +11,9 @@ storage/exports
 node_modules
 
 # environment variables
-.env
-
+.env.development
+.env.production
+frontend/.env
 # logs
 logs
 *.log

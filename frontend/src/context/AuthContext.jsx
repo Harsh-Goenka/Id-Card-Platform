@@ -50,7 +50,7 @@ export const AuthProvider = ({
             response.data
           );
 
-        } catch {
+        } 
 
           catch {
 
