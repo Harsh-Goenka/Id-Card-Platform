@@ -1,0 +1,32 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs
+*.log
+
+# Temporary storage
+storage
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage
+
+# Misc
+*.md
