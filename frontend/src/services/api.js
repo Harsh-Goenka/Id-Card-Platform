@@ -25,21 +25,18 @@ api.interceptors.response.use(
 
     const originalRequest = error.config;
 
+    // Never try to refresh when the refresh request itself fails
     if (
-
       error.response?.status === 401 &&
-
-      !originalRequest._retry
-
+      !originalRequest._retry &&
+      !originalRequest.url?.includes("/auth/refresh")
     ) {
 
       originalRequest._retry = true;
 
       try {
 
-        const response = await api.post(
-          "/auth/refresh"
-        );
+        const response = await api.post("/auth/refresh");
 
         const accessToken =
           response.data.data.accessToken;
@@ -54,16 +51,14 @@ api.interceptors.response.use(
 
         return api(originalRequest);
 
-      } catch {
+      } catch (refreshError) {
 
-        localStorage.removeItem(
-          "accessToken"
-        );
+        localStorage.removeItem("accessToken");
 
         window.location.href = "/login";
 
+        return Promise.reject(refreshError);
       }
-
     }
 
     return Promise.reject(error);
